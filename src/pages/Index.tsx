@@ -64,7 +64,7 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              MediaHub
+              Creative Space
             </div>
             <div className="hidden md:flex gap-6">
               {sections.map((section) => (
@@ -90,9 +90,8 @@ const Index = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20" />
             <div className="relative z-10 max-w-3xl animate-fade-in">
               <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                Добро пожаловать в
                 <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                  мир медиа
+                  МИР МЕДИА
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground mb-8">
@@ -190,7 +189,7 @@ const Index = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-center items-center">
             <div className="text-muted-foreground">
-              © 2024 MediaHub. Все права защищены.
+              © 2024 Creative Space. Все права защищены.
             </div>
           </div>
         </div>
