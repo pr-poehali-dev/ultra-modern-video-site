@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
+import MediaUpload from '@/components/MediaUpload';
+import MediaGallery from '@/components/MediaGallery';
 
 const sections = ['Главная', 'Блог', 'Видео', 'Музыка', 'Галерея', 'О проекте', 'Контакты'];
 
@@ -35,6 +38,7 @@ const contentCards = [
 const Index = () => {
   const [activeSection, setActiveSection] = useState('Главная');
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const playHoverSound = () => {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -117,54 +121,51 @@ const Index = () => {
         </section>
 
         <section className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center animate-fade-in">
-            Исследуйте контент
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {contentCards.map((card, index) => (
-              <Card
-                key={card.id}
-                className="group relative overflow-hidden border-white/10 bg-card/50 backdrop-blur-sm cursor-pointer animate-slide-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-                onMouseEnter={() => {
-                  setHoveredCard(card.id);
-                  playHoverSound();
-                }}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                  <div className={`absolute inset-0 bg-primary/20 transition-opacity duration-300 ${
-                    hoveredCard === card.id ? 'opacity-100' : 'opacity-0'
-                  }`} />
-                </div>
-                
-                <div className="p-6 relative">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className={`p-2 rounded-full bg-primary/10 transition-all duration-300 ${
-                      hoveredCard === card.id ? 'animate-glow bg-primary/20' : ''
-                    }`}>
-                      <Icon name={card.icon as any} size={24} className="text-primary" />
-                    </div>
-                    <h3 className="text-xl font-semibold">{card.title}</h3>
-                  </div>
-                  <p className="text-muted-foreground mb-4">{card.description}</p>
-                  <Button 
-                    variant="ghost" 
-                    className="w-full justify-between group-hover:bg-primary/10"
-                  >
-                    Открыть
-                    <Icon name="ArrowRight" size={18} className="transition-transform group-hover:translate-x-2" />
-                  </Button>
-                </div>
-              </Card>
-            ))}
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold animate-fade-in">
+              Управление контентом
+            </h2>
           </div>
+          
+          <Tabs defaultValue="videos" className="w-full">
+            <div className="flex justify-between items-center mb-6">
+              <TabsList className="glass-effect border border-white/10">
+                <TabsTrigger value="videos" className="data-[state=active]:bg-primary/20">
+                  <Icon name="Film" size={16} className="mr-2" />
+                  Видео
+                </TabsTrigger>
+                <TabsTrigger value="music" className="data-[state=active]:bg-primary/20">
+                  <Icon name="Music" size={16} className="mr-2" />
+                  Музыка
+                </TabsTrigger>
+                <TabsTrigger value="blog" className="data-[state=active]:bg-primary/20">
+                  <Icon name="FileText" size={16} className="mr-2" />
+                  Блог
+                </TabsTrigger>
+              </TabsList>
+            </div>
+
+            <TabsContent value="videos" className="space-y-6">
+              <div className="flex justify-end">
+                <MediaUpload type="video" onSuccess={() => setRefreshTrigger(prev => prev + 1)} />
+              </div>
+              <MediaGallery type="videos" refreshTrigger={refreshTrigger} />
+            </TabsContent>
+
+            <TabsContent value="music" className="space-y-6">
+              <div className="flex justify-end">
+                <MediaUpload type="music" onSuccess={() => setRefreshTrigger(prev => prev + 1)} />
+              </div>
+              <MediaGallery type="music" refreshTrigger={refreshTrigger} />
+            </TabsContent>
+
+            <TabsContent value="blog" className="space-y-6">
+              <div className="flex justify-end">
+                <MediaUpload type="blog" onSuccess={() => setRefreshTrigger(prev => prev + 1)} />
+              </div>
+              <MediaGallery type="blog" refreshTrigger={refreshTrigger} />
+            </TabsContent>
+          </Tabs>
         </section>
 
         <section className="container mx-auto px-4 mt-20">
