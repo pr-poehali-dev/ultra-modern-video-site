@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -39,6 +39,38 @@ const Index = () => {
   const [activeSection, setActiveSection] = useState('Главная');
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const audio = new Audio();
+    audio.loop = true;
+    audio.volume = 0.15;
+    
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    const filter = audioContext.createBiquadFilter();
+    
+    oscillator.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.type = 'sine';
+    oscillator.frequency.value = 110;
+    filter.type = 'lowpass';
+    filter.frequency.value = 800;
+    
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.03, audioContext.currentTime + 3);
+    
+    oscillator.start();
+    audioRef.current = audio;
+    
+    return () => {
+      oscillator.stop();
+      audioContext.close();
+    };
+  }, []);
 
   const playHoverSound = () => {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -59,8 +91,16 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <nav className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-white/10">
+    <div className="min-h-screen bg-background text-foreground relative">
+      <div 
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat z-0" 
+        style={{ 
+          backgroundImage: 'url(https://cdn.poehali.dev/projects/97c8c9cb-8e5d-4699-ac13-1079cc3a81d5/files/e88b3c6c-1752-4034-ae6f-5dd88b2326d7.jpg)',
+          opacity: 0.4
+        }}
+      />
+      <div className="fixed inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background z-0" />
+      <nav className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-white/10 relative">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="text-4xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent" style={{ fontFamily: 'Tangerine', fontWeight: 700 }}>
@@ -84,7 +124,7 @@ const Index = () => {
         </div>
       </nav>
 
-      <main className="pt-24 pb-12">
+      <main className="pt-24 pb-12 relative z-10">
         <section className="container mx-auto px-4 mb-20">
           <div className="relative overflow-hidden rounded-3xl p-12 md:p-20 glass-effect">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20" />
@@ -185,7 +225,7 @@ const Index = () => {
         </section>
       </main>
 
-      <footer className="border-t border-white/10 mt-20">
+      <footer className="border-t border-white/10 mt-20 relative z-10">
         <div className="container mx-auto px-4 py-8">
           <div className="flex justify-center items-center">
             <div className="text-muted-foreground">
