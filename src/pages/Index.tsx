@@ -63,7 +63,7 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-white/10">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            <div className="text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent uppercase tracking-wide" style={{ fontFamily: 'Montserrat', fontWeight: 700 }}>
               Creative Space
             </div>
             <div className="hidden md:flex gap-6">
