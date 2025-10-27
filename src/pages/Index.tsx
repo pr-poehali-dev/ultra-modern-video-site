@@ -63,7 +63,7 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-white/10">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent uppercase tracking-wide" style={{ fontFamily: 'Montserrat', fontWeight: 700 }}>
+            <div className="text-4xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent" style={{ fontFamily: 'Tangerine', fontWeight: 700 }}>
               Creative Space
             </div>
             <div className="hidden md:flex gap-6">
@@ -89,8 +89,8 @@ const Index = () => {
           <div className="relative overflow-hidden rounded-3xl p-12 md:p-20 glass-effect">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20" />
             <div className="relative z-10 max-w-3xl animate-fade-in">
-              <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight tracking-wider">
-                <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent uppercase" style={{ fontFamily: 'Montserrat', fontWeight: 800, letterSpacing: '0.1em' }}>
+              <h1 className="text-7xl md:text-9xl mb-6 leading-tight">
+                <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent" style={{ fontFamily: 'Tangerine', fontWeight: 700 }}>
                   Мир Медиа
                 </span>
               </h1>
