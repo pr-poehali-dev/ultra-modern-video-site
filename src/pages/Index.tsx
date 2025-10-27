@@ -89,9 +89,9 @@ const Index = () => {
           <div className="relative overflow-hidden rounded-3xl p-12 md:p-20 glass-effect">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20" />
             <div className="relative z-10 max-w-3xl animate-fade-in">
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                  МИР МЕДИА
+              <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight tracking-wider">
+                <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent uppercase" style={{ fontFamily: 'Montserrat', fontWeight: 800, letterSpacing: '0.1em' }}>
+                  Мир Медиа
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground mb-8">
